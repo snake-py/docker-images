@@ -16,5 +16,5 @@ jobs:
       - uses: actions/checkout@v2
       - run: echo ${DOCKER_HUB_PASSWORD} | docker login --username "${DOCKER_HUB_USER}" --password-stdin
       - run: docker build . --file Dockerfile -t ${IMAGE_NAME}
-      - run: docker tag "${IMAGE_NAME}" "${DOCKER_HUB_NAMESPACE}/${IMAGE_NAME}:${PHP_VERSION}-${VERSION}"
-      - run: docker push "${DOCKER_HUB_NAMESPACE}/${IMAGE_NAME}:${PHP_VERSION}-${VERSION}"
+      - run: docker tag "${IMAGE_NAME}" "${DOCKER_HUB_NAMESPACE}/${IMAGE_NAME}:php${PHP_VERSION}-${VERSION}"
+      - run: docker push "${DOCKER_HUB_NAMESPACE}/${IMAGE_NAME}:php${PHP_VERSION}-${VERSION}"
