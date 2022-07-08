@@ -6,9 +6,8 @@ env:
   DOCKER_HUB_NAMESPACE: ${{ secrets.DOCKER_HUB_NAMESPACE }}
 jobs:
   publish:
+    runs-on: ubuntu-latest
     steps:
-      runs-on: ubuntu-latest
-      - name: "Publish to Docker Hub"
       - run: export IMAGE_NAME=laravel-dev-image
       - run: echo ${DOCKER_HUB_PASSWORD} | docker login --username "${DOCKER_HUB_USER}" --password-stdin
       - run: docker build . --file Dockerfile -t ${IMAGE_NAME}
