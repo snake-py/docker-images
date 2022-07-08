@@ -10,8 +10,8 @@ jobs:
   publish:
     runs-on: ubuntu-latest
     steps:
+      - name: publish to docker hub
       - uses: actions/checkout@v2
-        working-directory: ./
       - run: echo ${DOCKER_HUB_PASSWORD} | docker login --username "${DOCKER_HUB_USER}" --password-stdin
       - run: ls -la
       - run: docker build . --file Dockerfile -t ${IMAGE_NAME}
