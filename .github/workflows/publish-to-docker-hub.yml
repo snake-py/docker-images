@@ -11,7 +11,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: echo ${DOCKER_HUB_PASSWORD} | docker login --username "${DOCKER_HUB_USER}" --password-stdin
-      - run: docker build Dockerfile -t ${IMAGE_NAME}
+      - run: ls -la
+      - run: docker build . --file Dockerfile -t ${IMAGE_NAME}
       - run: VERSION="prod-0.1.${GITHUB_JOB}"
       - run: IMAGE=${DOCKER_HUB_NAMESPACE}/${IMAGE_NAME}
       - run: docker tag "${IMAGE_NAME}" "${IMAGE}:${VERSION}"
