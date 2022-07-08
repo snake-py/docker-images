@@ -4,7 +4,7 @@ on: [push]
 jobs:
   publish:
     steps:
-    - name: "Publish to Docker Hub"
+      - name: "Publish to Docker Hub"
       env:
         DOCKER_HUB_PASSWORD: ${{ secrets.DOCKER_HUB_PASSWORD }}
         DOCKER_HUB_USER: ${{ secrets.DOCKER_HUB_USER }}
