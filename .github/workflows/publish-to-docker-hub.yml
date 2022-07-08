@@ -1,0 +1,13 @@
+name: publish-to-docker-hub
+on: [push]
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - run: export IMAGE_NAME=laravel-dev-image
+      - run: echo ${DOCKER_HUB_PASSWORD} | docker login --username "${DOCKER_HUB_USER}" --password-stdin
+      - run: docker build . --file Dockerfile -t ${IMAGE_NAME}
+      - run: VERSION="prod-0.1.${GITHUB_JOB}"
+      - run: IMAGE=${DOCKER_HUB_NAMESPACE}/${IMAGE_NAME}
+      - run: docker tag "${IMAGE_NAME}" "${IMAGE}:${VERSION}"
+      - run: docker push "${IMAGE}:${VERSION}"
