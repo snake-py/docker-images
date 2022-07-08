@@ -12,9 +12,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: echo ${DOCKER_HUB_PASSWORD} | docker login --username "${DOCKER_HUB_USER}" --password-stdin
-      - run: ls -la
       - run: docker build . --file Dockerfile -t ${IMAGE_NAME}
       - run: VERSION="prod-0.1.${GITHUB_JOB}"
-      - run: IMAGE=${DOCKER_HUB_NAMESPACE}/${IMAGE_NAME}
-      - run: docker tag "${IMAGE_NAME}" "${IMAGE}:${VERSION}"
-      - run: docker push "${IMAGE}:${VERSION}"
+      - run: docker tag "${IMAGE_NAME}" "${DOCKER_HUB_NAMESPACE}/${IMAGE_NAME}:${VERSION}"
+      - run: docker push "$${DOCKER_HUB_NAMESPACE}/${IMAGE_NAME}:${VERSION}"
