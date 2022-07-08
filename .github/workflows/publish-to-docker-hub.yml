@@ -5,13 +5,16 @@ env:
   DOCKER_HUB_USER: ${{ secrets.DOCKER_HUB_USER }}
   DOCKER_HUB_NAMESPACE: ${{ secrets.DOCKER_HUB_NAMESPACE }}
   IMAGE_NAME: 'laravel-dev-image'
+  VERSION: ${{ github.sha }}
 
 jobs:
   publish:
     runs-on: ubuntu-latest
     steps:
+      env:
+        PHP_VERSION: 7.4
       - uses: actions/checkout@v2
       - run: echo ${DOCKER_HUB_PASSWORD} | docker login --username "${DOCKER_HUB_USER}" --password-stdin
       - run: docker build . --file Dockerfile -t ${IMAGE_NAME}
-      - run: docker tag "${IMAGE_NAME}" "${DOCKER_HUB_NAMESPACE}/${IMAGE_NAME}:prod-0.1.${GITHUB_JOB}"
-      - run: docker push "${DOCKER_HUB_NAMESPACE}/${IMAGE_NAME}:prod-0.1.${GITHUB_JOB}"
+      - run: docker tag "${IMAGE_NAME}" "${DOCKER_HUB_NAMESPACE}/${IMAGE_NAME}:${PHP_VERSION}-${VERSION}"
+      - run: docker push "${DOCKER_HUB_NAMESPACE}/${IMAGE_NAME}:${PHP_VERSION}-${GITHUB_JOB}"
