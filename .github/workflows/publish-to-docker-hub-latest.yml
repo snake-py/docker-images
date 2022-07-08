@@ -1,12 +1,14 @@
 name: publish-to-docker-hub
-on: [push]
+on:
+  schedule:
+    - cron: '30 5,17 * * *'
 
 env:
   DOCKER_HUB_PASSWORD: ${{ secrets.DOCKER_HUB_PASSWORD }}
   DOCKER_HUB_USER: ${{ secrets.DOCKER_HUB_USER }}
   DOCKER_HUB_NAMESPACE: ${{ secrets.DOCKER_HUB_NAMESPACE }}
   IMAGE_NAME: 'laravel-dev-image'
-  VERSION: ${{ github.sha }}
+  VERSION: latest
 
 jobs:
   publish:
