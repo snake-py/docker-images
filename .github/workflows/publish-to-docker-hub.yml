@@ -25,6 +25,12 @@ env:
   SEPARATOR: '-'
   IMAGE_NAME: 'laravel-dev-image'
 
+.python_shared_vars: &python_shared_vars
+  LANGUAGE_VERSION: 3.10
+  LANGUAGE: python
+  SEPARATOR: '-'
+  IMAGE_NAME: 'python-dev'
+
 jobs:
   publish_on_push_php_7.4_to_docker_hub:
     runs-on: ubuntu-latest
@@ -38,5 +44,19 @@ jobs:
     if: ${{ github.event.inputs.schedule == 'true' }}
     env:
       <<: *php_shared_vars
+      VERSION: 'latest'
+    <<: *push_to_docker_hub
+  publish_on_push_python_3.10_to_docker_hub:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.inputs.push == 'true' }}
+    env:
+      <<: *python_shared_vars
+      VERSION: ${{ github.sha }}
+    <<: *push_to_docker_hub
+  publish_on_scheduled_python_3.10_to_docker_hub:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.inputs.schedule == 'true' }}
+    env:
+      <<: *python_shared_vars
       VERSION: 'latest'
     <<: *push_to_docker_hub
