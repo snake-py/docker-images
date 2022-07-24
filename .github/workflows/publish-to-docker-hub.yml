@@ -12,7 +12,7 @@ env:
   DOCKER_HUB_NAMESPACE: ${{ secrets.DOCKER_HUB_NAMESPACE }}
 
 jobs:
-  publish_on_push_php_7.4_to_docker_hub:
+  publish_on_push_php_7.4:
     runs-on: ubuntu-latest
     if: ${{ github.event.inputs.push == 'true' }}
     env:
@@ -27,7 +27,7 @@ jobs:
       - run: docker build . --file ${IMAGE_NAME}/Dockerfile -t ${IMAGE_NAME}
       - run: docker tag "${IMAGE_NAME}" "${DOCKER_HUB_NAMESPACE}/${IMAGE_NAME}:${LANGUAGE}${LANGUAGE_VERSION}-${VERSION}"
       - run: docker push "${DOCKER_HUB_NAMESPACE}/${IMAGE_NAME}:${LANGUAGE}${LANGUAGE_VERSION}${SEPARATOR}${VERSION}"
-  publish_on_scheduled_php_7.4_to_docker_hub:
+  publish_on_scheduled_php_7.4:
     runs-on: ubuntu-latest
     if: ${{ github.event.inputs.schedule == 'true' }}
     env:
@@ -42,7 +42,7 @@ jobs:
       - run: docker build . --file ${IMAGE_NAME}/Dockerfile -t ${IMAGE_NAME}
       - run: docker tag "${IMAGE_NAME}" "${DOCKER_HUB_NAMESPACE}/${IMAGE_NAME}:${LANGUAGE}${LANGUAGE_VERSION}-${VERSION}"
       - run: docker push "${DOCKER_HUB_NAMESPACE}/${IMAGE_NAME}:${LANGUAGE}${LANGUAGE_VERSION}${SEPARATOR}${VERSION}"
-  publish_on_push_python_3.10_to_docker_hub:
+  publish_on_push_python_3.10:
     runs-on: ubuntu-latest
     if: ${{ github.event.inputs.push == 'true' }}
     env:
@@ -57,7 +57,7 @@ jobs:
       - run: docker build . --file ${IMAGE_NAME}/Dockerfile -t ${IMAGE_NAME}
       - run: docker tag "${IMAGE_NAME}" "${DOCKER_HUB_NAMESPACE}/${IMAGE_NAME}:${LANGUAGE}${LANGUAGE_VERSION}-${VERSION}"
       - run: docker push "${DOCKER_HUB_NAMESPACE}/${IMAGE_NAME}:${LANGUAGE}${LANGUAGE_VERSION}${SEPARATOR}${VERSION}"
-  publish_on_scheduled_python_3.10_to_docker_hub:
+  publish_on_scheduled_python_3.10:
     runs-on: ubuntu-latest
     if: ${{ github.event.inputs.schedule == 'true' }}
     env:
