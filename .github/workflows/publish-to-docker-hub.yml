@@ -46,7 +46,7 @@ jobs:
     runs-on: ubuntu-latest
     if: ${{ github.event.inputs.push == 'true' }}
     env:
-        LANGUAGE_VERSION: 3.10
+      LANGUAGE_VERSION: 3.10
       LANGUAGE: python
       SEPARATOR: '-'
       IMAGE_NAME: 'python-dev'
@@ -61,7 +61,7 @@ jobs:
     runs-on: ubuntu-latest
     if: ${{ github.event.inputs.schedule == 'true' }}
     env:
-        LANGUAGE_VERSION: 3.10
+      LANGUAGE_VERSION: 3.10
       LANGUAGE: python
       SEPARATOR: '-'
       IMAGE_NAME: 'python-dev'
