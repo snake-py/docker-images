@@ -1,0 +1,2 @@
+FROM python:latest
+ENV PYTHONUNBUFFERED=1
