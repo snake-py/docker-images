@@ -1,24 +1,26 @@
 name: publish-to-docker-hub
-on: [push]
+on:
+  schedule:
+    - cron: '30 5,17 * * *'
 
 env:
   DOCKER_HUB_PASSWORD: ${{ secrets.DOCKER_HUB_PASSWORD }}
   DOCKER_HUB_USER: ${{ secrets.DOCKER_HUB_USER }}
   DOCKER_HUB_NAMESPACE: ${{ secrets.DOCKER_HUB_NAMESPACE }}
-  VERSION: ${{ github.sha }}
+  VERSION: latest
 
 jobs:
   publish_php:
     runs-on: ubuntu-latest
     env:
-      LANGUAGE_VERSION: 7.4
       IMAGE_NAME: 'laravel-dev-image'
+      PHP_VERSION: 7.4
     steps:
       - uses: actions/checkout@v2
       - run: echo ${DOCKER_HUB_PASSWORD} | docker login --username "${DOCKER_HUB_USER}" --password-stdin
       - run: docker build . --file ${IMAGE_NAME}/Dockerfile -t ${IMAGE_NAME}
-      - run: docker tag "${IMAGE_NAME}" "${DOCKER_HUB_NAMESPACE}/${IMAGE_NAME}:php${LANGUAGE_VERSION}-${VERSION}"
-      - run: docker push "${DOCKER_HUB_NAMESPACE}/${IMAGE_NAME}:php${LANGUAGE_VERSION}-${VERSION}"
+      - run: docker tag "${IMAGE_NAME}" "${DOCKER_HUB_NAMESPACE}/${IMAGE_NAME}:php${PHP_VERSION}-${VERSION}"
+      - run: docker push "${DOCKER_HUB_NAMESPACE}/${IMAGE_NAME}:php${PHP_VERSION}-${VERSION}"
   publish_python:
     runs-on: ubuntu-latest
     env:
