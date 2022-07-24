@@ -11,22 +11,24 @@ jobs:
   publish_php:
     runs-on: ubuntu-latest
     env:
-      LANGUAGE_VERSION: 7.4
       IMAGE_NAME: 'laravel-dev-image'
+      LANGUAGE: 'php'
+      LANGUAGE_VERSION: 7.4
     steps:
       - uses: actions/checkout@v2
       - run: echo ${DOCKER_HUB_PASSWORD} | docker login --username "${DOCKER_HUB_USER}" --password-stdin
       - run: docker build . --file ${IMAGE_NAME}/Dockerfile -t ${IMAGE_NAME}
-      - run: docker tag "${IMAGE_NAME}" "${DOCKER_HUB_NAMESPACE}/${IMAGE_NAME}:php${LANGUAGE_VERSION}-${VERSION}"
-      - run: docker push "${DOCKER_HUB_NAMESPACE}/${IMAGE_NAME}:php${LANGUAGE_VERSION}-${VERSION}"
+      - run: docker tag "${IMAGE_NAME}" "${DOCKER_HUB_NAMESPACE}/${IMAGE_NAME}:${LANGUAGE}${LANGUAGE_VERSION}-${VERSION}"
+      - run: docker push "${DOCKER_HUB_NAMESPACE}/${IMAGE_NAME}:${LANGUAGE}${LANGUAGE_VERSION}-${VERSION}"
   publish_python:
     runs-on: ubuntu-latest
     env:
-      LANGUAGE_VERSION: 3.10
       IMAGE_NAME: 'python-dev'
+      LANGUAGE: 'python'
+      LANGUAGE_VERSION: 3.10
     steps:
       - uses: actions/checkout@v2
       - run: echo ${DOCKER_HUB_PASSWORD} | docker login --username "${DOCKER_HUB_USER}" --password-stdin
       - run: docker build . --file ${IMAGE_NAME}/Dockerfile -t ${IMAGE_NAME}
-      - run: docker tag "${IMAGE_NAME}" "${DOCKER_HUB_NAMESPACE}/${IMAGE_NAME}:php${LANGUAGE_VERSION}-${VERSION}"
-      - run: docker push "${DOCKER_HUB_NAMESPACE}/${IMAGE_NAME}:php${LANGUAGE_VERSION}-${VERSION}"
+      - run: docker tag "${IMAGE_NAME}" "${DOCKER_HUB_NAMESPACE}/${IMAGE_NAME}:${LANGUAGE}${LANGUAGE_VERSION}-${VERSION}"
+      - run: docker push "${DOCKER_HUB_NAMESPACE}/${IMAGE_NAME}:${LANGUAGE}${LANGUAGE_VERSION}-${VERSION}"
