@@ -1,7 +1,7 @@
 name: publish-to-docker-hub
 on:
   schedule:
-    - cron: '30 5,17 * * *'
+    - cron: '0 0 1 * *'
 
 env:
   DOCKER_HUB_PASSWORD: ${{ secrets.DOCKER_HUB_PASSWORD }}
