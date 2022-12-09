@@ -1,0 +1,6 @@
+npm@latest
+nodemon
+cross-env
+prettier
+@prettier/plugin-php
+eslint
