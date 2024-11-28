@@ -33,7 +33,4 @@ RUN npm --version
 # install node packages
 RUN npm install -g nodemon
 RUN npm i -g cross-env
-
-
-# install pnpm
-RUN wget -qO- https://get.pnpm.io/install.sh | ENV="$HOME/.bashrc" SHELL="$(which bash)" bash -
+RUN npm i -g pnpm
