@@ -47,9 +47,9 @@ jobs:
     publish_node_pnpm:
         runs-on: ubuntu-latest
         env:
-            IMAGE_NAME: "node-pnpm"
+            IMAGE_NAME: "node"
             LANGUAGE: "node"
-            LANGUAGE_VERSION: 20
+            LANGUAGE_VERSION: 18
         steps:
             - uses: actions/checkout@v2
             - run: echo ${DOCKER_HUB_PASSWORD} | docker login --username "${DOCKER_HUB_USER}" --password-stdin
